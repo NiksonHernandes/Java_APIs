@@ -39,7 +39,7 @@ public class Usuario implements UserDetails {
                 inverseJoinColumns = @JoinColumn(name =  "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-    @Override
+    @Override //a minha role tem que implmentar o GrantedAuthority para retornar o nome da role
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }

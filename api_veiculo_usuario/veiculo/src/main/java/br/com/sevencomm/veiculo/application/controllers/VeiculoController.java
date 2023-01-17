@@ -3,12 +3,17 @@ package br.com.sevencomm.veiculo.application.controllers;
 import br.com.sevencomm.veiculo.domain.models.dtos.VeiculoDTO;
 import br.com.sevencomm.veiculo.domain.services.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.xml.ws.Response;
 
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/veiculo")
 public class VeiculoController {
@@ -44,6 +49,15 @@ public class VeiculoController {
         }
     }
 
+    @GetMapping("/get-veiculo-by-id/{id}")
+    public ResponseEntity<Object> getVeiculoById(@PathVariable(value = "id") Long veiculoId) {
+        try {
+            return ResponseEntity.ok(_veiculoService.getVeiculoById(veiculoId));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
     @DeleteMapping("/delete-veiculo-by-current-user/{id}")
     public ResponseEntity<Object> deleteVeiculoByCurrentUser(@PathVariable(value = "id") Long veiculoId) {
         try {
@@ -62,4 +76,5 @@ public class VeiculoController {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
+
 }

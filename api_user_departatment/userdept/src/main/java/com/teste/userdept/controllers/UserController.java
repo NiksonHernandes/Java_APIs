@@ -41,6 +41,4 @@ public class UserController {
         return "Carro deletado com sucesso!";
     }
 
-
-
 }

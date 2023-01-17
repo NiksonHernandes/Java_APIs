@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@CrossOrigin(origins = "*")
+//@CrossOrigin -> libera requisção de qq lugar
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {

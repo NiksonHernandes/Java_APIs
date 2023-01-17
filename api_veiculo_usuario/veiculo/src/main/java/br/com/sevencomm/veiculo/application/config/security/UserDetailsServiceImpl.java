@@ -1,5 +1,6 @@
 package br.com.sevencomm.veiculo.application.config.security;
 //responsável por buscar o usuário no b.d que será autenticado pelo username
+//responsável por fazer a authenticação dos usuários que vão usar a API
 
 import br.com.sevencomm.veiculo.data.repositories.UsuarioRespository;
 import br.com.sevencomm.veiculo.domain.models.Usuario;

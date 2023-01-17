@@ -89,6 +89,28 @@ public class VeiculoServiceImpl implements VeiculoService {
     }
 
     @Override
+    public Veiculo getVeiculoById(Long veiculoId) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario currentUser = (Usuario) authentication.getPrincipal();//pega o usuário autenticado
+
+        Optional<Veiculo> optionalVeiculo = _veiculoRepository.findById(veiculoId); //pega os dados do veiculo pelo ID
+
+        if (!(optionalVeiculo.isPresent())) {//verificar se o id existe
+
+            throw new IllegalArgumentException("Id do veículo inválido");
+        }
+
+        Veiculo _veiculo = optionalVeiculo.get();
+
+        if (_veiculo.getUsuario().getId() != currentUser.getId()) { //verifica se o usuário pode acessar esse veiculo
+            throw new IllegalArgumentException("Sem permissão para acessar este carro");
+        }
+
+        return _veiculo;
+    }
+
+    @Override
     public Veiculo updateVeiculoByCurrentUser(Long veiculoId, VeiculoDTO veiculoDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario currentUser = (Usuario) authentication.getPrincipal();//pega o usuário autenticado

@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,7 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//Cirar a autenticação e retornar também a authenticação JWT, controla o login
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
     public static final String AUTH_URL = "/login";
 
     private final AuthenticationManager authenticationManager;
@@ -27,7 +30,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.authenticationManager = authenticationManager;
 
         // api/authenticate
-        setFilterProcessesUrl(AUTH_URL);
+        setFilterProcessesUrl(AUTH_URL); //fala que a URL será responsável pelo END-point de login
     }
 
     @Override
